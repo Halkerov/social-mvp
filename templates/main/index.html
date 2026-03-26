@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Scrols-mvp</title>
+</head>
+<body>
+    <h1>All posts</h1>
+
+    {% for post in posts %}
+        <div style="border: 1px solid #ccc; padding: 10px; margin: 10px;">
+            <h2>
+                <a href="/post/{{ post.id }}/">{{ post.title }}</a>
+            </h2>
+            <p>{{ post.created_at }}</p>
+        </div>
+    {% empty %}
+        <p>There are no posts.</p>
+    {% endfor %}
+
+</body>
+</html>
