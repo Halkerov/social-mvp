@@ -14,15 +14,15 @@ def post_detail(request, post_id):
 	return render(request, 'main/post_detail.html', {'post': post})
 
 def register(request):
-	if request.method == 'POST':
-		form = UserCreationForm(request.POST)
-		if form.is_valid():
-			user = form.save()
-			login(request, user)
-			return redirect('index')
-	else:
-		form = UserCreationForm()
-	return render(request, 'registration/register.html', {'form': form})
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect('index')
+    else:
+        form = UserCreationForm()
+    return render(request, 'registration/register.html', {'form': form})
 
 def login_view(request):
 	if request.method == 'POST':
