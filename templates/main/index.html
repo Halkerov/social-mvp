@@ -4,15 +4,15 @@
     <title>Лента</title>
 </head>
 <body>
+    <!-- Навигация -->
     <nav>
-        {% if user.is_authenricated %}
-            <p>Привет, <strong>{{ user.username }}</strong>! | <a href="{% url 'logout' %}>Выйти</a></p>
+        {% if user.is_authenticated %}
+            <p>Привет, <strong>{{ user.username }}</strong>! | <a href="/logout/" style="color: blue; text-decoration: underline;">Выйти</a></p>
         {% else %}
-            <p><a href="{% url 'login' %}">Войти</a> | <a href="{% url 'register' %}>Зарегистрироваться</a></p>
+            <p><a href="/login/" style="color: blue; text-decoration: underline;">Войти</a> | <a href="/register/" style="color: blue; text-decoration: underline;">Зарегистрироваться</a></p>
         {% endif %}
     </nav>
     <hr>
-
     <h1>Все посты</h1>
     {% for post in posts %}
         <h2><a href="{% url 'post_detail' post.id %}">{{ post.title }}</a></h2>
