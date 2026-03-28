@@ -5,11 +5,40 @@
 </head>
 <body>
     <h1>Регистрация</h1>
+    
+    {% if form.errors %}
+        <div style="color: red;">
+            <h3>Ошибки:</h3>
+            <ul>
+                {% for field in form %}
+                    {% for error in field.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+    
     <form method="post">
         {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Зарегистрироваться</button>
+        <div>
+            <label>Имя пользователя:</label><br>
+            <input type="text" name="username" required style="width: 300px; padding: 5px;">
+        </div>
+        <br>
+        <div>
+            <label>Пароль:</label><br>
+            <input type="password" name="password1" required style="width: 300px; padding: 5px;">
+        </div>
+        <br>
+        <div>
+            <label>Подтвердите пароль:</label><br>
+            <input type="password" name="password2" required style="width: 300px; padding: 5px;">
+        </div>
+        <br>
+        <button type="submit" style="padding: 10px 20px;">Зарегистрироваться</button>
     </form>
-    <p>Уже есть аккаунт? <a href="{% url 'login' %}'>Войти</a></p>
+    <br>
+    <p><a href="/login/" style="color: blue; text-decoration: underline;">Уже есть аккаунт? Войти</a></p>
 </body>
 </html>
