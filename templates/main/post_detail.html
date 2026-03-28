@@ -5,10 +5,17 @@
 </head>
 <body>
     <h1>{{ post.title }}</h1>
-    <p><small>{{ post.created_at }}</small><p>
+    <p>
+        <small>
+            {{ post.created_at }}
+            {% if post.author %}
+                | Автор: <strong>{{ post.author.username }}</strong>
+            {% endif %}
+        </small>
+    </p>
     <hr>
     <p>{{ post.content }}</p>
     <hr>
-    <a href="/"> Назад к списку постов</a>
+    <a href="/">Назад к списку постов</a>
 </body>
 </html>

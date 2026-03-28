@@ -1,21 +1,24 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Scrols-mvp</title>
+    <title>Лента</title>
 </head>
 <body>
-    <h1>All posts</h1>
+    <nav>
+        {% if user.is_authenricated %}
+            <p>Привет, <strong>{{ user.username }}</strong>! | <a href="{% url 'logout' %}>Выйти</a></p>
+        {% else %}
+            <p><a href="{% url 'login' %}">Войти</a> | <a href="{% url 'register' %}>Зарегистрироваться</a></p>
+        {% endif %}
+    </nav>
+    <hr>
 
+    <h1>Все посты</h1>
     {% for post in posts %}
-        <div style="border: 1px solid #ccc; padding: 10px; margin: 10px;">
-            <h2>
-                <a href="/post/{{ post.id }}/">{{ post.title }}</a>
-            </h2>
-            <p>{{ post.created_at }}</p>
-        </div>
+        <h2><a href="{% url 'post_detail' post.id %}">{{ post.title }}</a></h2>
+        <p><small>{{ post.created_at }}</small></p>
     {% empty %}
-        <p>There are no posts.</p>
+        <p>Пока нет постов</p>
     {% endfor %}
-
 </body>
 </html>
