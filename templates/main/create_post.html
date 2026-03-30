@@ -1,1 +1,27 @@
 <!DOCTYPE html>
+<html>
+<head>
+    <title>Создать пост</title>
+</head>
+<body>
+    <h1>Новый пост</h1>
+    
+    <form method="post">
+        {% csrf_token %}
+        
+        <div>
+            <label>Заголовок:</label><br>
+            {{ form.title }}
+        </div>
+        <br>
+        <div>
+            <label>Текст поста:</label><br>
+            {{ form.content }}
+        </div>
+        <br>
+        <button type="submit" style="padding: 10px 20px;">Опубликовать</button>
+    </form>
+    <br>
+    <p><a href="/" style="color: blue; text-decoration: underline;">← Отмена</a></p>
+</body>
+</html>
