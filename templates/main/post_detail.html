@@ -7,9 +7,16 @@
     <h1>{{ post.title }}</h1>
     <p>
         <small>
-            {{ post.created_at }}
-            {% if post.author %}
-                | Автор: <strong>{{ post.author.username }}</strong>
+            {% if post.author == user %}
+            <div style="margin-top: 20px; padding: 10px; background: #f0f0f0; border-radius: 5px;">
+                <a href="{% url 'edit_post' post.id %}" style="color: blue; text-decoration: underline; margin-right: 15px;"> Редактировать</a>
+                
+                <form action="{% url 'delete_post' post.id %}" method="post" style="display: inline;">
+                    {% csrf_token %}
+                    <button type="submit" style="color: red; background: none; border: none; cursor: pointer; text-decoration: underline;" 
+                            onclick="return confirm('Вы уверены, что хотите удалить этот пост?')"> Удалить</button>
+                </form>
+            </div>
             {% endif %}
         </small>
     </p>
