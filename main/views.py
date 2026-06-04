@@ -51,3 +51,36 @@ def create_post(request):
 	else:
 		form = PostForm()
 	return render(request, 'main/create_post.html', {'form': form})
+
+@login_required
+def edit_post(request, post_id):
+    post = get_object_or_404(Post, id=post_id)
+    
+    if post.author != request.user:
+        logger.warning(f"User {request.user.username} tried to edit post {post_id} by {post.author.username}")
+        return redirect('index')
+    
+    if request.method == 'POST':
+        form = PostForm(request.POST, instance=post)
+        if form.is_valid():
+            form.save()
+            logger.info(f"Post {post_id} edited by {request.user.username}")
+            return redirect('post_detail', post_id=post.id)
+        else:
+            logger.warning(f"Invalid edit form submitted by {request.user.username}")
+    else:
+        form = PostForm(instance=post)
+    
+    return render(request, 'main/edit_post.html', {'form': form, 'post': post})
+
+@login_required
+def delete_post(request, post_id):
+    post = get_object_or_404(Post, id=post_id)
+    
+    if post.author != request.user:
+        logger.warning(f"User {request.user.username} tried to delete post {post_id} by {post.author.username}")
+        return redirect('index')
+    
+    post.delete()
+    logger.info(f"Post {post_id} deleted by {request.user.username}")
+    return redirect('index')
